@@ -1,5 +1,6 @@
 #include "pausescreen.h"
 #include <QGraphicsBlurEffect>
+#include "soundmanager.h"
 PauseScreen::PauseScreen(QSize wSize, QWidget *parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
@@ -15,6 +16,9 @@ void PauseScreen::connectSignalsAndSlots()
 {
     connect(exitButton,&QPushButton::clicked,this,&PauseScreen::sigNewGame);
     connect(resumeButton,&QPushButton::clicked,this,&PauseScreen::sigResume);
+    connect(resumeButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+    connect(exitButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+
 }
 
 void PauseScreen::layoutUI()

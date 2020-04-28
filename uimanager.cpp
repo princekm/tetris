@@ -23,6 +23,7 @@ void UIManager::connectSignalsAndSlots()
 
     connect(this,&UIManager::sigShowWelcomeScreen,this,&UIManager::slotShowWelcomeScreen);
     connect(gameScreen,&GameScreen::sigGameOver,this,&UIManager::slotShowGameOverScreen);
+
     connect(gameScreen,&GameScreen::sigPauseGame,this,&UIManager::slotShowPauseScreen);
 
     connect(gameScreen,&GameScreen::sigHome,gameScreen,&GameScreen::slotStopGame);

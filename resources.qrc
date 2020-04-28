@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file alias="styles/style.qss">assets/styles/style.qss</file>
+        <file alias="music/point.wav">assets/music/point.wav</file>
+        <file alias="music/click.wav">assets/music/click.wav</file>
+        <file alias="music/gameover.wav">assets/music/gameover.wav</file>
     </qresource>
 </RCC>

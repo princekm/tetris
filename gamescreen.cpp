@@ -1,9 +1,9 @@
 #include "gamescreen.h"
+#include "soundmanager.h"
 #include <QDebug>
 GameScreen::GameScreen(QSize wSize, QWidget *parent) : QWidget(parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
-
     setFixedSize(wSize);
     slotInit();
     layoutUI();
@@ -40,16 +40,20 @@ void GameScreen::layoutUI()
 void GameScreen::styleUI()
 {
 
-//     sideFrame->setStyleSheet("background:#22a6b3");
 
 }
 
 void GameScreen::connectSignalsAndSlots()
 {
+    connect(view,&GameView::sigPoint,SoundManager::getInstance(),&SoundManager::slotPlayPoint);
     connect(view,&GameView::sigPoint,this,&GameScreen::slotUpdatePoint);
     connect(pauseButton,&QPushButton::clicked,this,&GameScreen::slotPauseGame);
     connect(homeButton,&QPushButton::clicked,this,&GameScreen::slotGoHome);
     connect(view,&GameView::sigGameOver,this,&GameScreen::sigGameOver);
+    connect(view,&GameView::sigGameOver,SoundManager::getInstance(),&SoundManager::slotPlayGameOver);
+    connect(pauseButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+    connect(homeButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+
 
 }
 

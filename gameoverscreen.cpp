@@ -1,9 +1,9 @@
 #include "gameoverscreen.h"
+#include "soundmanager.h"
 #include <QGraphicsBlurEffect>
 GameOverScreen::GameOverScreen(QSize wSize, QWidget *parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
-
     setFixedSize(wSize);
     slotInit();
     layoutUI();
@@ -15,6 +15,9 @@ void GameOverScreen::connectSignalsAndSlots()
 {
     connect(backButton,&QPushButton::clicked,this,&GameOverScreen::sigGoBack);
     connect(restartButton,&QPushButton::clicked,this,&GameOverScreen::sigRestart);
+    connect(backButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+    connect(restartButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+
 }
 
 void GameOverScreen::layoutUI()

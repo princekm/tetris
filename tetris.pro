@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = tetris
 INCLUDEPATH += .
 
-QT+= widgets
+QT+= widgets multimedia
 CONFIG -= app_bundle
 MOC_DIR = moc
 OBJECTS_DIR = obj
@@ -23,6 +23,7 @@ HEADERS += block.h \
            gamescreen.h \
            gameview.h \
            pausescreen.h \
+           soundmanager.h \
            uimanager.h \
            welcomescreen.h
 SOURCES += block.cpp \
@@ -31,6 +32,7 @@ SOURCES += block.cpp \
            gameview.cpp \
            main.cpp \
            pausescreen.cpp \
+           soundmanager.cpp \
            uimanager.cpp \
            welcomescreen.cpp
 

@@ -1,5 +1,6 @@
 #include "welcomescreen.h"
 #include "QGraphicsBlurEffect"
+#include "soundmanager.h"
 WelcomeScreen::WelcomeScreen(QSize wSize, QWidget *parent)
 {
    // setWindowFlags(Qt::FramelessWindowHint);
@@ -12,7 +13,11 @@ WelcomeScreen::WelcomeScreen(QSize wSize, QWidget *parent)
 void WelcomeScreen::connectSignalsAndSlots()
 {
     connect(exitButton,&QPushButton::clicked,this,&WelcomeScreen::sigExit);
+
     connect(newButton,&QPushButton::clicked,this,&WelcomeScreen::sigNewGame);
+
+    connect(newButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
+    connect(exitButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
 }
 
 void WelcomeScreen::layoutUI()

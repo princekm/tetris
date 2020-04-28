@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.12 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.12 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -Imoc -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../../Qt/5.13.0/clang_64/mkspecs/macx-clang -F/Users/prinz/Qt/5.13.0/clang_64/lib
+INCPATH       = -I. -I. -I../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -Imoc -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../../Qt/5.13.0/clang_64/mkspecs/macx-clang -F/Users/prinz/Qt/5.13.0/clang_64/lib
 QMAKE         = /Users/prinz/Qt/5.13.0/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = tetris1.0.0
 DISTDIR = /Users/prinz/Workspace/qt/Examples/tetris/obj/tetris1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.12 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/prinz/Qt/5.13.0/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/prinz/Qt/5.13.0/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL   
+LIBS          = $(SUBLIBS) -F/Users/prinz/Qt/5.13.0/clang_64/lib -framework QtWidgets -framework QtMultimedia -framework QtGui -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -58,12 +58,14 @@ SOURCES       = block.cpp \
 		gameview.cpp \
 		main.cpp \
 		pausescreen.cpp \
+		soundmanager.cpp \
 		uimanager.cpp \
 		welcomescreen.cpp qrc_resources.cpp \
 		moc/moc_gameoverscreen.cpp \
 		moc/moc_gamescreen.cpp \
 		moc/moc_gameview.cpp \
 		moc/moc_pausescreen.cpp \
+		moc/moc_soundmanager.cpp \
 		moc/moc_uimanager.cpp \
 		moc/moc_welcomescreen.cpp
 OBJECTS       = obj/block.o \
@@ -72,6 +74,7 @@ OBJECTS       = obj/block.o \
 		obj/gameview.o \
 		obj/main.o \
 		obj/pausescreen.o \
+		obj/soundmanager.o \
 		obj/uimanager.o \
 		obj/welcomescreen.o \
 		obj/qrc_resources.o \
@@ -79,6 +82,7 @@ OBJECTS       = obj/block.o \
 		obj/moc_gamescreen.o \
 		obj/moc_gameview.o \
 		obj/moc_pausescreen.o \
+		obj/moc_soundmanager.o \
 		obj/moc_uimanager.o \
 		obj/moc_welcomescreen.o
 DIST          = ../../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
@@ -258,6 +262,7 @@ DIST          = ../../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		gamescreen.h \
 		gameview.h \
 		pausescreen.h \
+		soundmanager.h \
 		uimanager.h \
 		welcomescreen.h block.cpp \
 		gameoverscreen.cpp \
@@ -265,6 +270,7 @@ DIST          = ../../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		gameview.cpp \
 		main.cpp \
 		pausescreen.cpp \
+		soundmanager.cpp \
 		uimanager.cpp \
 		welcomescreen.cpp
 QMAKE_TARGET  = tetris
@@ -463,7 +469,9 @@ Makefile: tetris.pro ../../../../Qt/5.13.0/clang_64/mkspecs/macx-clang/qmake.con
 		tetris.pro \
 		resources.qrc \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
+		../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl \
 		../../../../Qt/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl \
+		../../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
 		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -o Makefile tetris.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
 ../../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf:
@@ -641,7 +649,9 @@ Makefile: tetris.pro ../../../../Qt/5.13.0/clang_64/mkspecs/macx-clang/qmake.con
 tetris.pro:
 resources.qrc:
 ../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
+../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl:
 ../../../../Qt/5.13.0/clang_64/lib/QtGui.framework/QtGui.prl:
+../../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
 ../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile tetris.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
@@ -659,8 +669,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents block.h gameoverscreen.h gamescreen.h gameview.h pausescreen.h uimanager.h welcomescreen.h $(DISTDIR)/
-	$(COPY_FILE) --parents block.cpp gameoverscreen.cpp gamescreen.cpp gameview.cpp main.cpp pausescreen.cpp uimanager.cpp welcomescreen.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents block.h gameoverscreen.h gamescreen.h gameview.h pausescreen.h soundmanager.h uimanager.h welcomescreen.h $(DISTDIR)/
+	$(COPY_FILE) --parents block.cpp gameoverscreen.cpp gamescreen.cpp gameview.cpp main.cpp pausescreen.cpp soundmanager.cpp uimanager.cpp welcomescreen.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -692,7 +702,10 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		../../../../Qt/5.13.0/clang_64/bin/rcc \
-		assets/styles/style.qss
+		assets/styles/style.qss \
+		assets/music/click.wav \
+		assets/music/gameover.wav \
+		assets/music/point.wav
 	/Users/prinz/Qt/5.13.0/clang_64/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc/moc_predefs.h
@@ -701,9 +714,9 @@ compiler_moc_predefs_clean:
 moc/moc_predefs.h: ../../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.12 -Wall -W -dM -E -o moc/moc_predefs.h ../../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc/moc_gameoverscreen.cpp moc/moc_gamescreen.cpp moc/moc_gameview.cpp moc/moc_pausescreen.cpp moc/moc_uimanager.cpp moc/moc_welcomescreen.cpp
+compiler_moc_header_make_all: moc/moc_gameoverscreen.cpp moc/moc_gamescreen.cpp moc/moc_gameview.cpp moc/moc_pausescreen.cpp moc/moc_soundmanager.cpp moc/moc_uimanager.cpp moc/moc_welcomescreen.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc/moc_gameoverscreen.cpp moc/moc_gamescreen.cpp moc/moc_gameview.cpp moc/moc_pausescreen.cpp moc/moc_uimanager.cpp moc/moc_welcomescreen.cpp
+	-$(DEL_FILE) moc/moc_gameoverscreen.cpp moc/moc_gamescreen.cpp moc/moc_gameview.cpp moc/moc_pausescreen.cpp moc/moc_soundmanager.cpp moc/moc_uimanager.cpp moc/moc_welcomescreen.cpp
 moc/moc_gameoverscreen.cpp: gameoverscreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFrame \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
@@ -715,7 +728,7 @@ moc/moc_gameoverscreen.cpp: gameoverscreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gameoverscreen.h -o moc/moc_gameoverscreen.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gameoverscreen.h -o moc/moc_gameoverscreen.cpp
 
 moc/moc_gamescreen.cpp: gamescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
@@ -740,7 +753,7 @@ moc/moc_gamescreen.cpp: gamescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gamescreen.h -o moc/moc_gamescreen.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gamescreen.h -o moc/moc_gamescreen.cpp
 
 moc/moc_gameview.cpp: gameview.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsView \
@@ -754,7 +767,7 @@ moc/moc_gameview.cpp: gameview.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gameview.h -o moc/moc_gameview.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib gameview.h -o moc/moc_gameview.cpp
 
 moc/moc_pausescreen.cpp: pausescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFrame \
@@ -767,7 +780,14 @@ moc/moc_pausescreen.cpp: pausescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib pausescreen.h -o moc/moc_pausescreen.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib pausescreen.h -o moc/moc_pausescreen.cpp
+
+moc/moc_soundmanager.cpp: soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		moc/moc_predefs.h \
+		../../../../Qt/5.13.0/clang_64/bin/moc
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib soundmanager.h -o moc/moc_soundmanager.cpp
 
 moc/moc_uimanager.cpp: uimanager.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -803,7 +823,7 @@ moc/moc_uimanager.cpp: uimanager.h \
 		welcomescreen.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib uimanager.h -o moc/moc_uimanager.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib uimanager.h -o moc/moc_uimanager.cpp
 
 moc/moc_welcomescreen.cpp: welcomescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QFrame \
@@ -816,7 +836,7 @@ moc/moc_welcomescreen.cpp: welcomescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		moc/moc_predefs.h \
 		../../../../Qt/5.13.0/clang_64/bin/moc
-	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib welcomescreen.h -o moc/moc_welcomescreen.cpp
+	/Users/prinz/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include /Users/prinz/Workspace/qt/Examples/tetris/moc/moc_predefs.h -I/Users/prinz/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Workspace/qt/Examples/tetris -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/prinz/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/prinz/Qt/5.13.0/clang_64/lib welcomescreen.h -o moc/moc_welcomescreen.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -862,6 +882,9 @@ obj/gameoverscreen.o: gameoverscreen.cpp gameoverscreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsBlurEffect \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/gameoverscreen.o gameoverscreen.cpp
@@ -887,6 +910,9 @@ obj/gamescreen.o: gamescreen.cpp gamescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/gamescreen.o gamescreen.cpp
@@ -944,7 +970,8 @@ obj/main.o: main.cpp ../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Head
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		gameoverscreen.h \
-		welcomescreen.h
+		welcomescreen.h \
+		soundmanager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o main.cpp
 
 obj/pausescreen.o: pausescreen.cpp pausescreen.h \
@@ -957,8 +984,20 @@ obj/pausescreen.o: pausescreen.cpp pausescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsBlurEffect \
-		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h
+		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/pausescreen.o pausescreen.cpp
+
+obj/soundmanager.o: soundmanager.cpp soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers/QSound \
+		../../../../Qt/5.13.0/clang_64/lib/QtMultimedia.framework/Headers/qsound.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/soundmanager.o soundmanager.cpp
 
 obj/uimanager.o: uimanager.cpp uimanager.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -1012,7 +1051,10 @@ obj/welcomescreen.o: welcomescreen.cpp welcomescreen.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsBlurEffect \
-		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h
+		../../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		soundmanager.h \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/welcomescreen.o welcomescreen.cpp
 
 obj/qrc_resources.o: qrc_resources.cpp 
@@ -1029,6 +1071,9 @@ obj/moc_gameview.o: moc/moc_gameview.cpp
 
 obj/moc_pausescreen.o: moc/moc_pausescreen.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_pausescreen.o moc/moc_pausescreen.cpp
+
+obj/moc_soundmanager.o: moc/moc_soundmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_soundmanager.o moc/moc_soundmanager.cpp
 
 obj/moc_uimanager.o: moc/moc_uimanager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_uimanager.o moc/moc_uimanager.cpp
