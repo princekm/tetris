@@ -1,0 +1,21 @@
+WelcomeScreen,PauseScreen,GameScreen,GameOverScreen,QFrame
+{
+    background:#22a6b3;
+}
+QPushButton
+{
+    font-weight:bold;font-size:19pt;background:#30336b;color:white;border-radius:30px;border:4px solid #8e44ad;
+}
+QPushButton::pressed
+{
+    font-weight:bold;font-size:19pt;background:#130f40;color:white;border-radius:30px;
+}
+
+QLabel
+{
+    font-weight:bold;font-size:36pt;color:white;
+}
+#pointview
+{
+    background:#30336b;border-radius:30px;font-weight:bold;font-size: 19pt ;
+}
