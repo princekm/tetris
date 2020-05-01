@@ -31,7 +31,7 @@ public:
 
     // QGraphicsItem interface
 public:
-    void moveDown(int phase) override;
+    void moveDown(int phase) ;
 };
 
 

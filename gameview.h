@@ -24,7 +24,7 @@ private:
     QMap <QTimeLine*,Block*> deleteMap;
     QList <Block*>currentList;
 public:
-    GameView(int  width,QWidget *parent=nullptr);
+    GameView(qreal  width,QWidget *parent=nullptr);
     ~GameView();
 protected:
     void init();
@@ -67,6 +67,12 @@ Q_SIGNALS:
     void sigGameOver();
     void sigPoint(int points);
     void sigCreateNewSet();
+    void sigRotate();
+    void sigLeft();
+    void sigRight();
+    void sigDown();
+    void sigBlock();
+
 public Q_SLOTS:
     void slotCreateNewSet();
     void slotAdvanceCurrentSet();
@@ -78,6 +84,10 @@ public Q_SLOTS:
     void slotStartGame();
     void slotStopGame();
     void slotPauseGame();
+    void slotDownPressed();
+    void slotRotatePressed();
+    void slotLeftPressed();
+    void slotRightPressed();
 
 
 

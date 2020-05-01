@@ -16,25 +16,36 @@ void GameScreen::layoutUI()
     setLayout(mainLayout);
     mainLayout->setMargin(MARGIN);
     mainLayout->setSpacing(MARGIN);
-    mainLayout->addWidget(view);
-    mainLayout->addWidget(sideFrame);
+    mainLayout->addWidget(view,1,Qt::AlignCenter);
+    mainLayout->addWidget(sideFrame,1,Qt::AlignCenter);
     sideLayout->setMargin(0);
     sideLayout->setSpacing(MARGIN);
     sideFrame->setLayout(sideLayout);
-    sideLayout->addWidget(pointView);
-    sideLayout->addWidget(pauseButton);
-    sideLayout->addWidget(homeButton);
+    controlLayout->addWidget(leftArrow);
+    controlLayout->addWidget(rotateArrow);
+    controlLayout->addWidget(downArrow);
+    controlLayout->addWidget(rightArrow);
+    buttonLayout->addWidget(pointView);
+    buttonLayout->addWidget(pauseButton);
+    buttonLayout->addWidget(homeButton);
+    controlLayout->setSpacing(MARGIN);
+    controlLayout->setMargin(0);
+    buttonLayout->setSpacing(MARGIN);
+    buttonLayout->setMargin(0);
+    sideLayout->addLayout(controlLayout);
+    sideLayout->addLayout(buttonLayout);
 
-    sideFrame->setFixedSize(width()-view->width()-3*MARGIN,height()-2*MARGIN);
     pointView->setFrameStyle(QFrame::Plain);
 
-    QSize buttonSize(size()/4);
-    int length = buttonSize.width() > buttonSize.height()?buttonSize.height():buttonSize.width();
-    buttonSize.setWidth(length);
-    buttonSize.setHeight(length);
-    pauseButton->setFixedSize(buttonSize);
-    homeButton->setFixedSize(buttonSize);
-    pointView ->setFixedSize(buttonSize);
+    int buttonLength= (sideFrame->height()-MARGIN)/2.0*0.4;
+    QSize buttonSize(buttonLength,buttonLength);
+//    pauseButton->setFixedSize(buttonSize);
+//    homeButton->setFixedSize(buttonSize);
+//    pointView ->setFixedSize(buttonSize);
+//    leftArrow->setFixedSize(buttonSize);
+//    rightArrow->setFixedSize(buttonSize);
+//    rotateArrow ->setFixedSize(buttonSize);
+//    downArrow ->setFixedSize(buttonSize);
 }
 
 void GameScreen::styleUI()
@@ -54,27 +65,44 @@ void GameScreen::connectSignalsAndSlots()
     connect(pauseButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
     connect(homeButton,&QPushButton::clicked,SoundManager::getInstance(),&SoundManager::slotPlayButtonPress);
 
+    connect(leftArrow,&QPushButton::clicked,this,&GameScreen::sigLeft);
+    connect(rightArrow,&QPushButton::clicked,this,&GameScreen::sigRight);
+    connect(rotateArrow,&QPushButton::clicked,this,&GameScreen::sigRotate);
+    connect(downArrow,&QPushButton::clicked,this,&GameScreen::sigDown);
+    connect(this,&GameScreen::sigLeft,view,&GameView::slotLeftPressed);
+    connect(this,&GameScreen::sigRight,view,&GameView::slotRightPressed);
+    connect(this,&GameScreen::sigRotate,view,&GameView::slotRotatePressed);
+    connect(this,&GameScreen::sigDown,view,&GameView::slotDownPressed);
 
 }
 
 void GameScreen::slotInit()
 {
-    view= new GameView (256);
+    MARGIN=50;
+    int length =size().height()*.2-3*MARGIN;
     sideFrame = new QFrame;
+    sideFrame->setFixedSize(size().width()-2*MARGIN,length*2+MARGIN);
+    view= new GameView ((size().height()-sideFrame->height())/2);
     pointView = new QLabel("Score:\n0");
     pointView->setAlignment(Qt::AlignCenter);
     pointView->setObjectName("pointview");
 
-    pauseButton = new QPushButton("\u2016 \nPause");
-    homeButton = new QPushButton("\u2302 \n Home");
-    MARGIN=10;
-    mainLayout = new QHBoxLayout;
+
+    pauseButton = new QPushButton("\u23f8 \nPause");
+    homeButton = new QPushButton("🏠 \n Home");
+    rightArrow = new QPushButton("\u27a1 \n Right");
+    leftArrow = new QPushButton("\u2b05 \n Left");
+    rotateArrow = new QPushButton("🔄 \nRotate");
+    downArrow = new QPushButton("\u2b07 \nDown");
+    mainLayout = new QVBoxLayout;
     sideLayout = new QVBoxLayout;
+    controlLayout = new QHBoxLayout;
+    buttonLayout = new QHBoxLayout;
+
 }
 
 void GameScreen::slotUpdatePoint(int point)
 {
-    qDebug()<<point;
     pointView->setText("Score:\n"+QString::number(point));
 }
 

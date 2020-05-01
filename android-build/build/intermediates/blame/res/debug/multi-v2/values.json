@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/prinz/Workspace/qt/Examples/tetris/android-build/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/prinz/Qt/5.13.0/android_x86_64/src/android/java/res/values/strings.xml",
+                    "from": {
+                        "startLines": "5,4,3,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "319,197,85,427",
+                        "endColumns": "107,121,111,97",
+                        "endOffsets": "422,314,192,520"
+                    },
+                    "to": {
+                        "startLines": "37,38,39,40",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "1762,1870,1992,2104",
+                        "endColumns": "107,121,111,97",
+                        "endOffsets": "1865,1987,2099,2197"
+                    }
+                },
+                {
+                    "source": "/Users/prinz/Workspace/qt/Examples/tetris/android-build/res/values/libs.xml",
+                    "from": {
+                        "startLines": "40,23,9,13,2",
+                        "startColumns": "4,4,4,5,4",
+                        "startOffsets": "1827,539,291,347,55",
+                        "endLines": "42,39,11,21,4",
+                        "endColumns": "12,12,12,13,12",
+                        "endOffsets": "1881,1822,340,533,165"
+                    },
+                    "to": {
+                        "startLines": "2,5,22,25,34",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,114,1402,1456,1647",
+                        "endLines": "4,21,24,33,36",
+                        "endColumns": "12,12,12,13,12",
+                        "endOffsets": "109,1397,1451,1642,1757"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -47,8 +47,8 @@ void WelcomeScreen::slotInit()
     title->setFixedSize(size().width()/2,size().height()/6);
 
 
-    QString exitString(QChar(0x232b));
-    exitString.append("\nExit");
+    QString exitString;
+    exitString.append("\u274c \n Exit");
     exitButton = new QPushButton(exitString);
     QString newString;//(QChar(''));
     newString.append("\u25b6 \n New");

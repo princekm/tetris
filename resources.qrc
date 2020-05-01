@@ -4,5 +4,7 @@
         <file alias="music/point.wav">assets/music/point.wav</file>
         <file alias="music/click.wav">assets/music/click.wav</file>
         <file alias="music/gameover.wav">assets/music/gameover.wav</file>
+        <file alias="music/control.wav">assets/music/control.wav</file>
+        <file alias="music/thud.wav">assets/music/thud.wav</file>
     </qresource>
 </RCC>

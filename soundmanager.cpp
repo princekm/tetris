@@ -25,16 +25,28 @@ void SoundManager::init()
 
 void SoundManager::slotPlayPoint()
 {
-    QSound::play("://music/point.wav");
+  //  QSound::play("://music/point.wav");
 }
 
 void SoundManager::slotPlayButtonPress()
 {
-    QSound::play("://music/click.wav");
+ //   QSound::play("://music/click.wav");
 }
 
 void SoundManager::slotPlayGameOver()
 {
-    QSound::play("://music/gameover.wav");
+  //  QSound::play("://music/gameover.wav");
+
+}
+
+void SoundManager::slotPlayGameControl()
+{
+  //  QSound::play("://music/control.wav");
+
+}
+
+void SoundManager::slotPlayGameHindrance()
+{
+  //  QSound::play("://music/thud.wav");
 
 }

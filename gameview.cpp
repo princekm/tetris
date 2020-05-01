@@ -1,13 +1,15 @@
 #include "gameview.h"
+#include "soundmanager.h"
 #include <QDebug>
 #include <cstring>
 #include <QRandomGenerator>
 #include <QTimer>
 #include <QKeyEvent>
 #include <iostream>
-GameView::GameView(int width,QWidget *parent):QGraphicsView(parent)
+GameView::GameView(qreal width, QWidget *parent):QGraphicsView(parent)
 {
-    setFixedWidth(width);
+
+    setFixedSize(width,width*2);
     COLUMNS = 8;
     ROWS = 16;
     INTERVAL_MILLI_SECS=500;
@@ -84,6 +86,12 @@ void GameView::updateStyle()
 void GameView::connectSignalsAndSlots()
 {
     connect(timer,&QTimer::timeout,this,&GameView::slotRefresh);
+    connect(this,&GameView::sigRotate,SoundManager::getInstance(),&SoundManager::slotPlayGameControl);
+    connect(this,&GameView::sigRight,SoundManager::getInstance(),&SoundManager::slotPlayGameControl);
+    connect(this,&GameView::sigLeft,SoundManager::getInstance(),&SoundManager::slotPlayGameControl);
+    connect(this,&GameView::sigDown,SoundManager::getInstance(),&SoundManager::slotPlayGameControl);
+    connect(this,&GameView::sigBlock,SoundManager::getInstance(),&SoundManager::slotPlayGameHindrance);
+
 }
 
 void GameView::drawGridLines()
@@ -380,6 +388,8 @@ bool GameView::canCurrentSetMove()
     {
         canMove&=hasNextEmpty(block->currPos());
     }
+    if(currentList.isEmpty())
+        canMove=false;
     return canMove;
 
 }
@@ -695,7 +705,7 @@ void GameView::slotRefresh()
         if(canMove)
         {
 
-          //  qDebug()<<"advancing";
+            //  qDebug()<<"advancing";
             slotAdvanceCurrentSet();
 
 
@@ -713,10 +723,10 @@ void GameView::slotRefresh()
             else
             {
 
-            //    qDebug()<<"block settled";
+                //    qDebug()<<"block settled";
                 setMatrixWithCurrent();
                 updateYMin();
-              //  qDebug()<<"ymin="<<yMin;
+                  qDebug()<<"ymin="<<yMin;
                 checkAndSetArray();
                 removeBlocksIfArrayIsSet();
                 if(rowGap==0)
@@ -752,7 +762,6 @@ void GameView::slotStartGame()
 void GameView::slotStopGame()
 {
     toggleTimer(false);
-    qDebug()<<"stopping timer";
 
     clearMatrix(true);
     foreach(Block *block,currentList)
@@ -762,6 +771,7 @@ void GameView::slotStopGame()
     }
     points=0;
     yMin=ROWS;
+    sigPoint(points);
     isPaused=false;
     rowGap=0;
     yMax=0;
@@ -774,6 +784,68 @@ void GameView::slotPauseGame()
     isPaused=true;
 }
 
+void GameView::slotDownPressed()
+{
+    if(!isPaused)
+    {
+        if(canCurrentSetMove())
+            emit sigDown();
+        else
+            emit sigBlock();
+        while(canCurrentSetMove())
+        {
+            slotAdvanceCurrentSet();
+        }
+
+    }
+}
+
+void GameView::slotRotatePressed()
+{
+    if(isRotationPossible())
+    {
+        rotateCurrentSet();
+        emit  sigRotate();
+    }
+    else
+    {
+        emit sigBlock();
+    }
+}
+
+void GameView::slotLeftPressed()
+{
+    if(!isPaused){
+        if(canCurrentSetMoveLeft())
+        {
+            slotMoveLeftCurrentSet();
+            emit sigLeft();
+        }
+        else
+        {
+            emit sigBlock();
+        }
+
+    }
+}
+
+void GameView::slotRightPressed()
+{
+    if(!isPaused)
+    {
+        if(canCurrentSetMoveRight())
+        {
+            slotMoveRightCurrentSet();
+            emit sigRight();
+        }
+        else
+        {
+            emit sigBlock();
+        }
+
+    }
+}
+
 
 
 void GameView::keyPressEvent(QKeyEvent *event)
@@ -781,23 +853,16 @@ void GameView::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key::Key_Up:
-        if(isRotationPossible())
-            rotateCurrentSet();
+        slotRotatePressed();
         break;
     case Qt::Key::Key_Left:
-        if(!isPaused)
-            if(canCurrentSetMoveLeft())
-                slotMoveLeftCurrentSet();
+        slotLeftPressed();
         break;
     case Qt::Key::Key_Right:
-        if(!isPaused)
-            if(canCurrentSetMoveRight())
-                slotMoveRightCurrentSet();
+        slotRightPressed();
         break;
     case Qt::Key::Key_Down:
-        if(!isPaused)
-            if(canCurrentSetMove())
-                slotAdvanceCurrentSet();
+        slotDownPressed();
         break;
     case Qt::Key::Key_P:
         if(!isPaused)

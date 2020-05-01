@@ -3,6 +3,7 @@
 #include <QGraphicsBlurEffect>
 #include <QDialog>
 #include <QFile>
+#include <QScreen>
 UIManager::UIManager(QObject *parent) : QObject(parent)
 {
     slotInit();
@@ -71,7 +72,7 @@ void UIManager::styleUI()
 
 void UIManager::slotInit()
 {
-    QSize wSize(384,532);
+    QSize wSize(qApp->screens().at(0)->size());
     container = new QFrame();
     container->setWindowFlags(Qt::FramelessWindowHint);
     container->setFixedSize(wSize);

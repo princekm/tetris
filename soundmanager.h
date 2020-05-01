@@ -17,6 +17,8 @@ public slots:
     void  slotPlayPoint();
     void  slotPlayButtonPress();
     void  slotPlayGameOver();
+    void  slotPlayGameControl();
+    void  slotPlayGameHindrance();
 
 };
 
